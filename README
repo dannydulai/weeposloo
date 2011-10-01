@@ -1,1 +1,12 @@
-Generate Nirva-style names, late '90s -- #!r00t
+Comment at top of code from pre-github:
+
+/*
+ * Generate Nirva-style names
+ * nate@root.org v1.1 9/28/99
+ *
+ * aaronmb@mit.edu v2.0 4/12/2000
+ * - Trimmed suffixes, added prefixes, split vowels into long and short,
+ *   added biases for long vowels and against repeats, code generated
+ *   "ishiboo" randomly.
+ */
+
