@@ -14,13 +14,13 @@
 
 char *prefixes[] = { "b", "d", "f", "l", "l", "m", "n", "n", "p", "s",
     "t", "w", "z", "sk", "sl", "skr", "h", "ish", "ish"};
-#define NUM_PREFIXES 19
+#define NUM_PREFIXES (sizeof(prefixes) / sizeof(*prefixes))
 char *long_vowels[] = { "oo", "ee" };
-#define NUM_LONGVOWELS 2
-char *short_vowels[] = { "o", "a", "u", "i" };    
-#define NUM_SHORTVOWELS 4
+#define NUM_LONGVOWELS (sizeof(long_vowels) / sizeof(*long_vowels))
+char *short_vowels[] = { "o", "a", "u", "i" };
+#define NUM_SHORTVOWELS (sizeof(short_vowels) / sizeof(*short_vowels))
 char *suffixes[] = { "s", "m", "t" };
-#define NUM_SUFFIXES 3
+#define NUM_SUFFIXES (sizeof(suffixes) / sizeof(*suffixes))
 
 
 #define DEFAULT_LONGBIAS 55
@@ -28,16 +28,16 @@ char *suffixes[] = { "s", "m", "t" };
 #define DEFAULT_MAX_SYLLABLES 3
 
 
-int 
+int
 main(int argc, char **argv)
-{   
+{
     extern char *optarg;
     char *ootpoot, *cp, *tp;
     int i, end, numlong, longbias, norep;
 
 #if defined(__FreeBSD__)
     srandomdev();
-#else 
+#else
     struct timeval tv;
     gettimeofday(&tv, NULL);
     srandom(time(NULL) ^ getpid() ^ (tv.tv_sec << 16) ^ tv.tv_usec);
@@ -59,7 +59,7 @@ main(int argc, char **argv)
                 }
                 break;
             case 'r':
-                norep = atoi(optarg); 
+                norep = atoi(optarg);
                 if ((norep < 0) || (norep > 100)) {
                     fprintf(stderr, "Repeat percentage must be between 0 and 100.\n");
                     return -1;
@@ -80,7 +80,7 @@ main(int argc, char **argv)
         }
     }
 
-    if (!end) {                        
+    if (!end) {
     	/* Loop for less than DEFAULT_MAX_SYLLABLES
          * and more than 1 syllable */
     	end = (random() % DEFAULT_MAX_SYLLABLES) + 1;
@@ -89,10 +89,10 @@ main(int argc, char **argv)
     }
 
     ootpoot = (char *)malloc(end * 6);
-    if (!ootpoot) { 
+    if (!ootpoot) {
         perror("malloc");
         return -1;
-    } 
+    }
 
     numlong = 0;
     cp = ootpoot;
@@ -116,7 +116,7 @@ main(int argc, char **argv)
             } while (strstr(ootpoot, tp) && (random()%100 < norep));
 
             strcpy(cp, tp); cp += strlen(tp);
-                        
+
 	} else {
             tp = short_vowels[random() % NUM_SHORTVOWELS];
             strcpy(cp, tp); cp += strlen(tp);
